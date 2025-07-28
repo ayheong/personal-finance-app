@@ -2,6 +2,8 @@ import os
 import pandas as pd
 import yaml
 
+pd.set_option('display.max_colwidth', None)
+
 # load formats of bank CSVs into dictionary
 def load_configs(folder="csv_formats"):
     configs = {}
