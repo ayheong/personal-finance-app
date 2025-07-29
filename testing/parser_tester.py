@@ -13,7 +13,7 @@ def run_test(csv_filename):
     try:
         df = match_config(csv_path, config_folder=CONFIG_FOLDER)
         print(f"Successfully parsed {csv_filename}")
-        df = fuzzy_categorize(df, keyword_file=KEYWORD_FILE)
+        df = fuzzy_categorize(df)
         print(f"Successfully categorized {csv_filename}")
         df.to_csv("output_debug.csv", index=False)
     except Exception as e:

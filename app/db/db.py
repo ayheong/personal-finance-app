@@ -15,8 +15,8 @@ if not MONGO_URI:
 
 # Connect to MongoDB Atlas
 client = MongoClient(MONGO_URI)
-db = client["personal_finance"]               # your database name
-collection = db["transactions"]         # your collection name
+db = client["personal_finance"]
+collection = db["transactions"]
 
 def save_transactions(df: pd.DataFrame, user_id: str = "default_user"):
     if df.empty:

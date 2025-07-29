@@ -3,9 +3,10 @@ import os
 import yaml
 from rapidfuzz import fuzz
 
-
-def load_keywords(file_path="categories.yaml"):
-    file_path = os.path.abspath(file_path)
+def load_keywords(file_path=None):
+    if file_path is None:
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        file_path = os.path.join(current_dir, "categories", "description_keywords.yaml")
     if not os.path.isfile(file_path):
         raise FileNotFoundError(f"Keyword file not found: {file_path}")
     with open(file_path, "r") as stream:
@@ -33,7 +34,7 @@ def fuzzy_match_description(desc, keyword_map, threshold=80):
     return best_match[0], best_match[1]  # simplified_description, category
 
 
-def fuzzy_categorize(df, threshold=80, keyword_file="categories.yaml"):
+def fuzzy_categorize(df, threshold=80, keyword_file=None):
     keyword_map = load_keywords(keyword_file)
     matches = df["description"].apply(lambda x: fuzzy_match_description(x, keyword_map, threshold))
 
