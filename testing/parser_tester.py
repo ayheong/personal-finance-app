@@ -1,12 +1,11 @@
 import os
-import pandas as pd
-from parsing.parser_main import match_config
-from parsing.description_cleaner import fuzzy_categorize
+from app.parsing.parser_main import match_config
+from app.parsing.description_cleaner import fuzzy_categorize
 
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-CSV_FOLDER = os.path.join(PROJECT_ROOT, "testing", "sample_data")
-CONFIG_FOLDER = os.path.join(PROJECT_ROOT, "parsing", "csv_formats")
-KEYWORD_FILE = os.path.join(PROJECT_ROOT, "parsing", "categories", "description_keywords.yaml")
+CSV_FOLDER = os.path.join(PROJECT_ROOT, "app", "testing", "sample_data")
+CONFIG_FOLDER = os.path.join(PROJECT_ROOT, "app", "parsing", "csv_formats")
+KEYWORD_FILE = os.path.join(PROJECT_ROOT, "app", "parsing", "categories", "description_keywords.yaml")
 
 def run_test(csv_filename):
     csv_path = os.path.join(CSV_FOLDER, csv_filename)
