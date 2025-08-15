@@ -49,13 +49,16 @@ def login():
 def require_auth(f):
     @wraps(f)
     def decorated(*args, **kwargs):
-        token = request.headers.get('Authorization')
-        if not token:
-            return jsonify({'error': 'Missing token'}), 403
+        auth = request.headers.get('Authorization', '')
+        if not auth.startswith('Bearer '):
+            return jsonify({'error': 'Missing or malformed token'}), 403
+        token = auth.split(' ', 1)[1]
 
         try:
             decoded = jwt.decode(token, JWT_SECRET, algorithms=['HS256'])
-            request.user = decoded  # stores user_id + username
+            # Prefer flask.g for request-scoped data
+            from flask import g
+            g.user = decoded
         except jwt.ExpiredSignatureError:
             return jsonify({'error': 'Token expired'}), 403
         except jwt.InvalidTokenError:

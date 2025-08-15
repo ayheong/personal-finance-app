@@ -1,12 +1,13 @@
 from flask import Flask, request, jsonify
 import pandas as pd
 
-from auth import require_auth, auth_bp
+from auth import require_auth, auth_bp, bcrypt
 from parsing.parser_main import match_config
 from parsing.description_cleaner import fuzzy_categorize
 from db.transactions import save_transactions, get_transactions
 
 app = Flask(__name__)
+bcrypt.init_app(app)
 app.register_blueprint(auth_bp)
 
 @app.route('/upload', methods=['POST'])
@@ -16,7 +17,7 @@ def upload_csv():
         return jsonify({'error': 'No file uploaded'}), 400
 
     file = request.files['file']
-    user_id = request.user["user_id"]  # secure source
+    user_id = request.user["user_id"]
 
     try:
         df = match_config(file)
