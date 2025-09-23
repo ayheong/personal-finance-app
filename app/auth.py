@@ -56,9 +56,9 @@ def require_auth(f):
 
         try:
             decoded = jwt.decode(token, JWT_SECRET, algorithms=['HS256'])
-            # Prefer flask.g for request-scoped data
             from flask import g
             g.user = decoded
+            request.user = decoded
         except jwt.ExpiredSignatureError:
             return jsonify({'error': 'Token expired'}), 403
         except jwt.InvalidTokenError:
