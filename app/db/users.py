@@ -4,7 +4,8 @@ from pymongo.errors import DuplicateKeyError
 from .db import db
 
 users_collection = db["users"]
-
+users_collection.create_index("username", unique=True)
+users_collection.create_index("email", unique=True)
 
 def create_user(username: str, email: str, password_hash: str) -> None:
     """Insert a new user into the database."""

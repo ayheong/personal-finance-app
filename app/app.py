@@ -1,42 +1,44 @@
 from flask import Flask, request, jsonify
-import pandas as pd
 
+from ml.model import predict_labels
 from auth import require_auth, auth_bp, bcrypt
-from parsing.parser_main import match_config
-from parsing.description_cleaner import fuzzy_categorize
 from db.transactions import save_transactions, get_transactions
+from parsing.parser_main import match_config
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="static", static_url_path="")
 bcrypt.init_app(app)
 app.register_blueprint(auth_bp)
 
-@app.route('/upload', methods=['POST'])
+@app.get("/")
+def index():
+    return app.send_static_file("index.html")
+
+@app.route("/upload", methods=["POST"])
 @require_auth
 def upload_csv():
     if 'file' not in request.files:
         return jsonify({'error': 'No file uploaded'}), 400
-
     file = request.files['file']
-    user_id = request.user["user_id"]
-
+    user_id = str(request.user["user_id"])
     try:
         df = match_config(file)
         df["user_id"] = user_id
-        df = fuzzy_categorize(df)
-        save_transactions(df)
+        labels = predict_labels(df["description"].astype(str).tolist())
+        df["category"] = labels
+        save_transactions(df, user_id)
         return jsonify({'message': 'Transactions saved successfully!'})
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-@app.route('/transactions', methods=['GET'])
+@app.route("/transactions", methods=["GET"])
 @require_auth
 def get_user_transactions():
-    user_id = request.user["user_id"]
+    user_id = str(request.user["user_id"])
     try:
         transactions = get_transactions(user_id)
-        return jsonify({'transactions': transactions})
+        return jsonify({"transactions": transactions})
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        return jsonify({"error": str(e)}), 500
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    app.run(debug=True, use_reloader=False)

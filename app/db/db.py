@@ -1,4 +1,4 @@
-from pymongo import MongoClient
+from pymongo import MongoClient, ASCENDING
 from dotenv import load_dotenv
 from pathlib import Path
 import os
@@ -15,4 +15,5 @@ if not MONGO_URI:
 client = MongoClient(MONGO_URI)
 db = client["personal_finance"]
 collection = db["transactions"]
+collection.create_index([("fingerprint", ASCENDING)], unique=True)
 
