@@ -1,0 +1,7 @@
+has_header: false
+columns:
+  - date
+  - amount
+  - empty_col1
+  - empty_col2
+  - description

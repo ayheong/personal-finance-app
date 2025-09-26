@@ -125,16 +125,34 @@
     <section id="page-home" class="page">
       <div class="card">
         <h2>Welcome <span id="welcomeName" class="muted">(guest)</span></h2>
-        <p class="muted">Use the actions below to upload a CSV and view your transactions.</p>
+        <p class="muted">Use the actions below to upload a CSV and view your transactions.
+          To start, select the corresponding account type and institution and upload your CSV.
+          To view all of your uploaded transactions, select fetch transactions.
+        </p>
       </div>
 
       <div class="card">
         <h2>Transactions</h2>
         <div class="row">
-          <button id="btnFetchTx">Fetch Transactions</button>
           <input type="file" id="csvFile" accept=".csv,text/csv" />
-          <button id="btnUpload">Upload CSV</button>
+
+          <select id="accountType">
+            <option value="" disabled selected>Select Account Type...</option>
+            <option value="bank">Bank Account</option>
+            <option value="card">Credit Card</option>
+          </select>
+
+          <select id="institution" disabled>
+            <option value="" disabled selected>Select Institution...</option>
+          </select>
+
           <span id="txMsg" class="muted"></span>
+        </div>
+
+        <div class="row" style="margin-top: 12px;">
+          <button id="btnUpload">Upload CSV</button>
+          <button id="btnFetchTx">Fetch Transactions</button>
+          <span id="txMsg2" class="muted"></span>
         </div>
 
         <!-- Progress bar -->
@@ -202,6 +220,38 @@
   </main>
 
 <script>
+
+  const institutions = {
+    bank: [
+      { value: "wells_fargo_debit", label: "Wells Fargo" },
+      { value: "chase_debit", label: "Chase" },
+    ],
+    card: [
+      { value: "chase_credit", label: "Chase" },
+      { value: "amex_credit", label: "American Express" }
+    ]
+  };
+
+  const acctType = document.getElementById("accountType");
+  const instSelect = document.getElementById("institution");
+
+  acctType.addEventListener("change", function() {
+    instSelect.innerHTML = '<option value="" disabled selected>Select Institution...</option>';
+
+    const type = this.value;
+    if (institutions[type]) {
+      institutions[type].forEach(opt => {
+        const o = document.createElement("option");
+        o.value = opt.value;
+        o.textContent = opt.label;
+        instSelect.appendChild(o);
+      });
+      instSelect.disabled = false;
+    } else {
+      instSelect.disabled = true;
+    }
+  });
+
 (function() {
   const $ = (id) => document.getElementById(id);
 
@@ -412,8 +462,13 @@
   $('btnUpload').onclick = async () => {
     const base = $('baseUrl').value.trim();
     const file = $('csvFile').files[0];
+    const institution = $('institution').value;
     if (!file) {
-      setMsg('txMsg','Pick a CSV');
+      setMsg('txMsg','Please select a CSV file to upload');
+      return;
+    }
+    if (!institution) {
+      setMsg('txMsg','Please select CSV details');
       return;
     }
 
@@ -423,6 +478,7 @@
 
     const form = new FormData();
     form.append('file', file);
+    form.append("csv_type", institution);
 
     try {
       const r = await fetch(base + '/upload', {

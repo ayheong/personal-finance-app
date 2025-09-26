@@ -1,9 +1,0 @@
-has_header: true
-date_format: "%m/%d/%Y"
-match_columns:
-  date:
-    - posting date
-  amount:
-    - amount
-  description:
-    - description

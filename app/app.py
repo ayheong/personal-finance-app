@@ -19,9 +19,12 @@ def upload_csv():
     if 'file' not in request.files:
         return jsonify({'error': 'No file uploaded'}), 400
     file = request.files['file']
+    csv_type = request.form.get('csv_type')
+    if not csv_type:
+        return jsonify({'error': 'No csv type selected'}), 400
     user_id = str(request.user["user_id"])
     try:
-        df = match_config(file)
+        df = match_config(file, csv_type)
         df["user_id"] = user_id
         labels = predict_labels(df["description"].astype(str).tolist())
         df["category"] = labels
@@ -41,4 +44,4 @@ def get_user_transactions():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
-    app.run(debug=True, use_reloader=False)
+    app.run(debug=True, use_reloader=True)
