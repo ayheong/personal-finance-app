@@ -40,7 +40,7 @@ def upload_csv():
         return jsonify({'message': 'Transactions saved successfully!'})
     except (KeyError, ValueError, ParserError):
         return jsonify({
-            'error': "Upload failed — the file format doesn’t match the account type you selected."
+            'error': "Upload failed, the file format doesn’t match the account type you selected."
         }), 400
     except Exception as e:
         import logging

@@ -39,9 +39,7 @@ def parse_csv(file_like, config):
     else:
         df["category"] = None
 
-    return df[["date", "amount", "description", "og_category", "category"]] \
-        if "og_category" in df.columns else df[["date", "amount", "description", "category"]]
-    return df[["date", "amount", "description"]].dropna()
+    return df[["date", "amount", "description", "og_category", "category"]]
 
 def match_config(file_like, csv_type, config_folder="csv_formats"):
     all_configs = load_configs(config_folder)
