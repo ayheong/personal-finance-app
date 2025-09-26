@@ -1,0 +1,23 @@
+has_header: true
+match_columns:
+  date: [ "Transaction Date" ]
+  amount: [ "Amount" ]
+  description: [ "Description" ]
+  og_category: [ "Category" ]
+translate_map:
+  "Automotive": "Transportation"
+  "Bills & utilities": "Utilities & Bills"
+  "Education": "Other"
+  "Entertainment": "Travel & Entertainment"
+  "Fees & adjustments": "Transfers & Payments"
+  "Food & drink": "Food & Dining"
+  "Gas": "Transportation"
+  "Gifts & donations": "Other"
+  "Groceries": "Food & Dining"
+  "Health & wellness": "Health & Insurance"
+  "Home": "Housing"
+  "Miscellaneous": "Other"
+  "Personal": "Other"
+  "Professional services": "Other"
+  "Shopping": "Shopping & Retail"
+  "Travel": "Travel & Entertainment"

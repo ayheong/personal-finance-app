@@ -1,0 +1,5 @@
+has_header: true
+match_columns:
+  date: [ "Posting Date" ]
+  amount: [ "Amount" ]
+  description: [ "Description" ]

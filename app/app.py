@@ -3,6 +3,7 @@ from flask import Flask, request, jsonify
 from ml.model import predict_labels
 from auth import require_auth, auth_bp, bcrypt
 from db.transactions import save_transactions, get_transactions
+from pandas.errors import ParserError
 from parsing.parser_main import match_config
 
 app = Flask(__name__, static_folder="static", static_url_path="")
@@ -26,12 +27,27 @@ def upload_csv():
     try:
         df = match_config(file, csv_type)
         df["user_id"] = user_id
-        labels = predict_labels(df["description"].astype(str).tolist())
-        df["category"] = labels
+
+        if "category" in df:
+            mask = df["category"].isna()
+            if mask.any():
+                labels = predict_labels(df.loc[mask, "description"].tolist())
+                df.loc[mask, "category"] = labels
+        else:
+            labels = predict_labels(df["description"].tolist())
+            df["category"] = labels
         save_transactions(df, user_id)
         return jsonify({'message': 'Transactions saved successfully!'})
+    except (KeyError, ValueError, ParserError):
+        return jsonify({
+            'error': "Upload failed — the file format doesn’t match the account type you selected."
+        }), 400
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        import logging
+        logging.exception("Unexpected error during upload")
+        return jsonify({
+            'error': "Something went wrong while processing your file. Please try again later."
+        }), 500
 
 @app.route("/transactions", methods=["GET"])
 @require_auth

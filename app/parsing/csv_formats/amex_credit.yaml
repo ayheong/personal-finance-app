@@ -1,0 +1,45 @@
+has_header: true
+match_columns:
+  date: [ "Date" ]
+  amount: [ "Amount" ]
+  description: [ "Description" ]
+  og_category: [ "Category" ]
+translate_map:
+  "Business Services-Advertising": "Professional/Other"
+  "Business Services-Banking": "Transfers & Payments"
+  "Business Services-Health Care": "Health & Insurance"
+  "Business Services-Insurance": "Health & Insurance"
+
+  "Communications-Cable & Internet": "Utilities & Bills"
+  "Communications-Mobile": "Utilities & Bills"
+  "Communications-Telephone": "Utilities & Bills"
+
+  "Entertainment-Clubs": "Travel & Entertainment"
+  "Entertainment-Sports Events": "Travel & Entertainment"
+  "Entertainment-Theme Parks": "Travel & Entertainment"
+  "Entertainment-Theater": "Travel & Entertainment"
+
+  "Fees & Adjustments": "Other"
+
+  "Merchandise & Supplies-Appliances": "Shopping & Retail"
+  "Merchandise & Supplies-General Retail": "Shopping & Retail"
+  "Merchandise & Supplies-Groceries": "Food & Dining"
+  "Merchandise & Supplies-Mail Order": "Shopping & Retail"
+
+  "Other-Charities": "Other"
+  "Other-Education": "Other"
+  "Other-Government Svcs": "Other"
+  "Other-Utilities": "Utilities & Bills"
+
+  "Restaurant-Bar and Cafe": "Food & Dining"
+  "Restaurant-Restaurant": "Food & Dining"
+
+  "Transportation-Air Services": "Travel & Entertainment"
+  "Transportation-Boat Services": "Travel & Entertainment"
+  "Transportation-Fuel": "Transportation"
+  "Transportation-Parking Charges": "Transportation"
+
+  "Travel-Airline": "Travel & Entertainment"
+  "Travel-Lodging": "Travel & Entertainment"
+  "Travel-Travel Agencies": "Travel & Entertainment"
+  "Travel-Vehicle Rental": "Travel & Entertainment"

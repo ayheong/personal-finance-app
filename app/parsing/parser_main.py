@@ -31,6 +31,16 @@ def parse_csv(file_like, config):
     else:
         df["date"] = pd.to_datetime(df["date"], errors="coerce")
     df["amount"] = pd.to_numeric(df["amount"], errors="coerce")
+
+    if "og_category" in df.columns:
+        df["og_category"] = df["og_category"].astype(str).str.strip()
+        translate_map = config.get("translate_map", {})
+        df["category"] = df["og_category"].map(translate_map).fillna("Other")
+    else:
+        df["category"] = None
+
+    return df[["date", "amount", "description", "og_category", "category"]] \
+        if "og_category" in df.columns else df[["date", "amount", "description", "category"]]
     return df[["date", "amount", "description"]].dropna()
 
 def match_config(file_like, csv_type, config_folder="csv_formats"):
@@ -38,5 +48,5 @@ def match_config(file_like, csv_type, config_folder="csv_formats"):
     if csv_type not in all_configs:
         raise ValueError(f"Unsupported csv_type: {csv_type}")
     config = all_configs[csv_type]
-    file_like.seek(0)  
+    file_like.seek(0)
     return parse_csv(file_like, config)
