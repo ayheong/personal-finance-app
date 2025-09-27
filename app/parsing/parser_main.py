@@ -31,15 +31,18 @@ def parse_csv(file_like, config):
     else:
         df["date"] = pd.to_datetime(df["date"], errors="coerce")
     df["amount"] = pd.to_numeric(df["amount"], errors="coerce")
-
     if "og_category" in df.columns:
         df["og_category"] = df["og_category"].astype(str).str.strip()
         translate_map = config.get("translate_map", {})
         df["category"] = df["og_category"].map(translate_map).fillna("Other")
     else:
         df["category"] = None
+    cols = ["date", "amount", "description", "category"]
+    if "og_category" in df.columns:
+        cols.insert(3, "og_category")
 
-    return df[["date", "amount", "description", "og_category", "category"]]
+    return df[cols]
+
 
 def match_config(file_like, csv_type, config_folder="csv_formats"):
     all_configs = load_configs(config_folder)

@@ -21,21 +21,22 @@ def upload_csv():
         return jsonify({'error': 'No file uploaded'}), 400
     file = request.files['file']
     csv_type = request.form.get('csv_type')
+    account_type = request.form.get('accountType')
+    institution = request.form.get('institution')
     if not csv_type:
         return jsonify({'error': 'No csv type selected'}), 400
+    if not account_type or not institution:
+        return jsonify({'error': 'Missing account details'}), 400
     user_id = str(request.user["user_id"])
     try:
         df = match_config(file, csv_type)
         df["user_id"] = user_id
+        df["account_type"] = account_type
+        df["institution"] = institution
 
-        if "category" in df:
-            mask = df["category"].isna()
-            if mask.any():
-                labels = predict_labels(df.loc[mask, "description"].tolist())
-                df.loc[mask, "category"] = labels
-        else:
-            labels = predict_labels(df["description"].tolist())
-            df["category"] = labels
+        labels = predict_labels(df["description"].tolist())
+        df["category"] = labels
+        
         save_transactions(df, user_id)
         return jsonify({'message': 'Transactions saved successfully!'})
     except (KeyError, ValueError, ParserError):

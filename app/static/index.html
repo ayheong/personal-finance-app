@@ -478,6 +478,8 @@
     const form = new FormData();
     form.append('file', file);
     form.append("csv_type", institution);
+    form.append('accountType', accountType);
+    form.append('institution', institution);
 
     try {
       const r = await fetch(base + '/upload', {
