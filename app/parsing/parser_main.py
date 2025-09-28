@@ -13,6 +13,21 @@ def load_configs(folder="csv_formats"):
                 configs[file.replace(".yaml", "")] = yaml.safe_load(stream)
     return configs
 
+def normalize(df, csv_type):
+    """
+    Default to negative for expenses and positives for incoming money amounts.
+    Also account for Automatic payments in credit card (remove).
+    """
+    flipped_csv_types = ["amex_credit"]
+    has_automatic_payments = ["chase_credit", "amex_credit"]
+    if csv_type in flipped_csv_types:
+        df["amount"] = pd.to_numeric(df["amount"], errors="coerce") * -1
+    if csv_type in has_automatic_payments:
+        df = df[~df["description"].str.contains("AUTOMATIC PAYMENT - THANK", case=False, na=False)]
+        df = df[~df["description"].str.contains("AUTOPAY PAYMENT - THANK YOU", case=False, na=False)]
+
+    return df
+
 
 def parse_csv(file_like, config):
     if config.get("has_header", True):
@@ -50,4 +65,6 @@ def match_config(file_like, csv_type, config_folder="csv_formats"):
         raise ValueError(f"Unsupported csv_type: {csv_type}")
     config = all_configs[csv_type]
     file_like.seek(0)
-    return parse_csv(file_like, config)
+    df = parse_csv(file_like, config)
+    df = normalize(df, csv_type)
+    return df
