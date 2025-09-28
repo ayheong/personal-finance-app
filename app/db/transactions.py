@@ -13,8 +13,8 @@ def _row_fingerprint(row) -> str:
     user_id = str(row.get("user_id", "")).strip()
     date_s  = _norm_date(row["date"])
     cents   = _norm_amount_cents(row["amount"])
-    desc    = (row.get("description") or "").strip().upper()
-    return hashlib.sha1(f"{user_id}|{date_s}|{cents}|{desc}".encode("utf-8")).hexdigest()
+    simp    = (row.get("simplified_description") or row.get("description") or "").strip().upper()
+    return hashlib.sha1(f"{user_id}|{date_s}|{cents}|{simp}".encode("utf-8")).hexdigest()
 
 def save_transactions(df: pd.DataFrame, user_id: str | None = None) -> int:
     if df.empty:
@@ -22,6 +22,9 @@ def save_transactions(df: pd.DataFrame, user_id: str | None = None) -> int:
 
     if user_id is not None and "user_id" not in df.columns:
         df["user_id"] = user_id
+
+    if "simplified_description" not in df.columns:
+        df["simplified_description"] = df["description"].astype(str).str.upper().str.strip()
 
     # Build fingerprints + drop in-batch duplicates
     df["fingerprint"] = df.apply(_row_fingerprint, axis=1)
