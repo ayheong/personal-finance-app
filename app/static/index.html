@@ -6,21 +6,23 @@
   <title>Personal Finance — Minimal SPA</title>
   <style>
     :root {
-      --bg:#0b1020;
-      --card:#121833;
-      --line:#1e2a56;
-      --ink:#e6e9f5;
-      --muted:#9aa4d6;
-      --accent:#2a7cf7;
+      --bg: #f3f4f6;
+      --card: #ffffff;
+      --line: #d1d5db;
+      --ink: #111827;
+      --muted: #6b7280;
+      --accent: #2563eb;
+      --accent-hover: #1d4ed8;
     }
 
     * { box-sizing: border-box; }
 
     body {
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
       margin: 0;
       background: var(--bg);
       color: var(--ink);
+      line-height: 1.5;
     }
 
     a { color: inherit; text-decoration: none; }
@@ -31,8 +33,8 @@
       position: sticky;
       top: 0;
       z-index: 10;
-      background: rgba(11,16,32,.8);
-      backdrop-filter: blur(6px);
+      background: rgba(255,255,255,.8);
+      backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--line);
     }
 
@@ -41,63 +43,109 @@
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      padding: 10px 0;
+      padding: 12px 0;
     }
 
-    .brand { font-weight: 700; letter-spacing: .3px; }
+    .brand { font-weight: 700; font-size: 18px; }
 
     .tabs { display: flex; gap: 10px; flex-wrap: wrap; }
 
     .tab {
-      padding: 8px 12px;
+      padding: 8px 14px;
       border: 1px solid var(--line);
-      border-radius: 10px;
-      background: #0f1530;
+      border-radius: 8px;
+      background: #e5e7eb;
+      font-size: 14px;
+      font-weight: 500;
       cursor: pointer;
+      transition: background .2s, border-color .2s, color .2s;
     }
-    .tab.active { background: var(--accent); border-color: var(--accent); }
+    .tab:hover { background: #d1d5db; }
+    .tab.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
 
     .wrap { padding: 20px; }
 
     .card {
       background: var(--card);
       border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 16px;
+      border-radius: 12px;
+      padding: 20px;
       margin-bottom: 16px;
-      box-shadow: 0 4px 16px rgba(0,0,0,.25);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, .08);
+      transition: box-shadow .2s;
+    }
+    .card:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, .12);
     }
 
     .row { display: flex; gap: 12px; flex-wrap: wrap; }
 
-    label { display: block; font-size: 14px; opacity: .95; margin-top: 6px; }
+    label { display: block; font-size: 14px; color: var(--muted); margin-top: 6px; }
 
     input, button, select {
-      font-size: 16px;
+      font-size: 15px;
       padding: 10px 12px;
-      border-radius: 10px;
-      border: 1px solid #2a386f;
-      background: #0f1530;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+    }
+
+    input {
+      background: #fff;
       color: var(--ink);
     }
 
     input::file-selector-button {
       border: none;
-      background: #23306b;
+      background: var(--accent);
       color: #fff;
       padding: 8px 10px;
-      border-radius: 8px;
+      border-radius: 6px;
       margin-right: 10px;
+      cursor: pointer;
+    }
+    input::file-selector-button:hover {
+      background: var(--accent-hover);
     }
 
-    button { cursor: pointer; background: var(--accent); border: none; }
-    button.secondary { background: #23306b; }
+    button {
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 8px;
+      padding: 10px 16px;
+      transition: all .2s;
+    }
+
+    button.primary {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+    }
+    button.primary:hover {
+      background: var(--accent-hover);
+      box-shadow: 0 2px 6px rgba(37, 99, 235, .4);
+    }
+
+    button.secondary {
+      background: #e5e7eb;
+      color: var(--ink);
+      border: 1px solid var(--line);
+    }
+    button.secondary:hover {
+      background: #d1d5db;
+      box-shadow: 0 2px 4px rgba(0,0,0,.1);
+    }
 
     .muted { color: var(--muted); }
 
-    table { width: 100%; border-collapse: collapse; }
-    th, td { padding: 10px; border-bottom: 1px solid #223165; }
-    th { text-align: left; opacity: .9; }
+    table { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 8px; overflow: hidden; }
+    th, td { padding: 12px; border-bottom: 1px solid var(--line); }
+    th { text-align: left; font-weight: 600; color: var(--muted); }
+    tr:hover td { background: #f9fafb; }
 
     .page { display: none; }
     .page.active { display: block; }
