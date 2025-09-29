@@ -378,8 +378,13 @@
   }
 
   // Helpers
-  function setMsg(id, msg) {
+  function setMsg(id, msg, timeoutMs = 0) {
     $(id).textContent = msg;
+    if (timeoutMs > 0) {
+      setTimeout(() => {
+        $(id).textContent = '';
+      }, timeoutMs);
+    }
   }
 
   function headers() {
@@ -526,7 +531,7 @@
     const form = new FormData();
     form.append('file', file);
     form.append("csv_type", institution);
-    form.append('accountType', accountType);
+    form.append('accountType', acctType.value);
     form.append('institution', institution);
 
     try {
