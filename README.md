@@ -1,15 +1,15 @@
 # personal-finance-app
 
 A full-stack web app that converts raw bank and credit card statements into categorized expenses and budget insights.  
-Built with Flask + MongoDB, integrating a fine-tuned BERT model with regex rules for transaction classification.
+Built with Flask + MongoDB, integrates a fine-tuned BERT model with regex rules for transaction classification.
 
 ---
 
 ## Features
 - Secure JWT-based login  
-- CSV upload with deduplication  
+- CSV upload 
 - Transaction categorization with BERT + regex  
-- Interactive budgeting dashboard  
+- Interactive dashboard 
 
 ---
 
