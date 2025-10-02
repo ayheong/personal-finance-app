@@ -55,7 +55,10 @@ def upload_csv():
 def get_user_transactions():
     user_id = str(request.user["user_id"])
     try:
-        transactions = get_transactions(user_id)
+        limit = int(request.args.get('limit', 30))
+        offset = int(request.args.get('offset', 0))
+
+        transactions = get_transactions(user_id, limit=limit, offset=offset)
         return jsonify({"transactions": transactions})
     except Exception as e:
         return jsonify({"error": str(e)}), 500

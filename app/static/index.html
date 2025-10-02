@@ -3,155 +3,46 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Personal Finance — Minimal SPA</title>
+  <title>Personal Finance App</title>
   <style>
-    :root {
-      --bg: #f3f4f6;
-      --card: #ffffff;
-      --line: #d1d5db;
-      --ink: #111827;
-      --muted: #6b7280;
-      --accent: #2563eb;
-      --accent-hover: #1d4ed8;
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-      margin: 0;
-      background: var(--bg);
-      color: var(--ink);
-      line-height: 1.5;
-    }
-
-    a { color: inherit; text-decoration: none; }
-
-    .container { max-width: 1000px; margin: 0 auto; padding: 16px 20px; }
-
-    header.nav {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      background: rgba(255,255,255,.8);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .nav-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 12px 0;
-    }
-
-    .brand { font-weight: 700; font-size: 18px; }
-
-    .tabs { display: flex; gap: 10px; flex-wrap: wrap; }
-
-    .tab {
-      padding: 8px 14px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: #e5e7eb;
-      font-size: 14px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background .2s, border-color .2s, color .2s;
-    }
-    .tab:hover { background: #d1d5db; }
-    .tab.active {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #fff;
-    }
-
-    .wrap { padding: 20px; }
-
-    .card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 16px;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, .08);
-      transition: box-shadow .2s;
-    }
-    .card:hover {
-      box-shadow: 0 4px 12px rgba(0, 0, 0, .12);
-    }
-
-    .row { display: flex; gap: 12px; flex-wrap: wrap; }
-
-    label { display: block; font-size: 14px; color: var(--muted); margin-top: 6px; }
-
-    input, button, select {
-      font-size: 15px;
-      padding: 10px 12px;
-      border-radius: 8px;
-      border: 1px solid var(--line);
-    }
-
-    input {
-      background: #fff;
-      color: var(--ink);
-    }
-
-    input::file-selector-button {
-      border: none;
-      background: var(--accent);
-      color: #fff;
-      padding: 8px 10px;
-      border-radius: 6px;
-      margin-right: 10px;
-      cursor: pointer;
-    }
-    input::file-selector-button:hover {
-      background: var(--accent-hover);
-    }
-
-    button {
-      cursor: pointer;
-      font-size: 15px;
-      font-weight: 600;
-      border-radius: 8px;
-      padding: 10px 16px;
-      transition: all .2s;
-    }
-
-    button.primary {
-      background: var(--accent);
-      color: #fff;
-      border: none;
-    }
-    button.primary:hover {
-      background: var(--accent-hover);
-      box-shadow: 0 2px 6px rgba(37, 99, 235, .4);
-    }
-
-    button.secondary {
-      background: #e5e7eb;
-      color: var(--ink);
-      border: 1px solid var(--line);
-    }
-    button.secondary:hover {
-      background: #d1d5db;
-      box-shadow: 0 2px 4px rgba(0,0,0,.1);
-    }
-
-    .muted { color: var(--muted); }
-
-    table { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 8px; overflow: hidden; }
-    th, td { padding: 12px; border-bottom: 1px solid var(--line); }
-    th { text-align: left; font-weight: 600; color: var(--muted); }
-    tr:hover td { background: #f9fafb; }
-
-    .page { display: none; }
-    .page.active { display: block; }
-
-    .spacer { height: 6px; }
-    .right { margin-left: auto; }
+    :root { --bg:#f3f4f6; --card:#ffffff; --line:#d1d5db; --ink:#111827; --muted:#6b7280; --accent:#2563eb; --accent-hover:#1d4ed8; }
+    *{ box-sizing:border-box; }
+    body{ font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif; margin:0; background:var(--bg); color:var(--ink); line-height:1.5; }
+    a{ color:inherit; text-decoration:none; }
+    .container{ max-width:1250px; margin:0 auto; padding:16px 20px; }
+    header.nav{ position:sticky; top:0; z-index:10; background:rgba(255,255,255,.8); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); }
+    .nav-inner{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 0; }
+    .brand{ font-weight:700; font-size:18px; }
+    .tabs{ display:flex; gap:10px; flex-wrap:wrap; }
+    .tab{ padding:8px 14px; border:1px solid var(--line); border-radius:8px; background:#e5e7eb; font-size:14px; font-weight:500; cursor:pointer; transition:background .2s,border-color .2s,color .2s; }
+    .tab:hover{ background:#d1d5db; }
+    .tab.active{ background:var(--accent); border-color:var(--accent); color:#fff; }
+    .wrap{ padding:20px; }
+    .card{ background:var(--card); border:1px solid var(--line); border-radius:12px; padding:20px; margin-bottom:16px; box-shadow:0 1px 4px rgba(0,0,0,.08); transition:box-shadow .2s; }
+    .card:hover{ box-shadow:0 4px 12px rgba(0,0,0,.12); }
+    .row{ display:flex; gap:12px; flex-wrap:wrap; }
+    label{ display:block; font-size:14px; color:var(--muted); margin-top:6px; }
+    input,button,select{ font-size:15px; padding:10px 12px; border-radius:8px; border:1px solid var(--line); }
+    input{ background:#fff; color:var(--ink); }
+    input::file-selector-button{ border:none; background:var(--accent); color:#fff; padding:8px 10px; border-radius:6px; margin-right:10px; cursor:pointer; }
+    input::file-selector-button:hover{ background:var(--accent-hover); }
+    button{ cursor:pointer; font-size:15px; font-weight:600; border-radius:8px; padding:10px 16px; transition:all .2s; }
+    button.primary{ background:var(--accent); color:#fff; border:none; }
+    button.primary:hover{ background:var(--accent-hover); box-shadow:0 2px 6px rgba(37,99,235,.4); }
+    button.secondary{ background:#e5e7eb; color:var(--ink); border:1px solid var(--line); }
+    button.secondary:hover{ background:#d1d5db; box-shadow:0 2px 4px rgba(0,0,0,.1); }
+    .muted{ color:var(--muted); }
+    table{ width:100%; border-collapse:collapse; background:var(--card); border-radius:8px; overflow:hidden; }
+    th,td{ padding:12px; border-bottom:1px solid var(--line); }
+    th{ text-align:left; font-weight:600; color:var(--muted); }
+    tr:hover td{ background:#f9fafb; }
+    .page{ display:none; }
+    .page.active{ display:block; }
+    .spacer{ height:6px; }
+    .right{ margin-left:auto; }
+    .col-date {width: 140px; white-space: nowrap; }
+    td.num{ text-align:right; }
+    input[data-saving="1"]{ outline:2px dashed #a3bffa; }
   </style>
 </head>
 <body>
@@ -169,41 +60,32 @@
   </header>
 
   <main class="container wrap">
-    <!-- HOME -->
     <section id="page-home" class="page">
       <div class="card">
         <h2>Welcome <span id="welcomeName" class="muted">(guest)</span></h2>
-        <p class="muted">Use the actions below to upload a CSV and view your transactions.
-          To start, select the corresponding account type and institution and upload your CSV.
-          To view all of your uploaded transactions, select fetch transactions.
-        </p>
+        <p class="muted">Upload a CSV to add transactions. Your most recent transactions load automatically.</p>
       </div>
 
       <div class="card">
         <h2>Transactions</h2>
         <div class="row">
           <input type="file" id="csvFile" accept=".csv,text/csv" />
-
           <select id="accountType">
             <option value="" disabled selected>Select Account Type...</option>
             <option value="bank">Bank Account</option>
             <option value="card">Credit Card</option>
           </select>
-
           <select id="institution" disabled>
             <option value="" disabled selected>Select Institution...</option>
           </select>
-
           <span id="txMsg" class="muted"></span>
         </div>
 
         <div class="row" style="margin-top: 12px;">
           <button id="btnUpload">Upload CSV</button>
-          <button id="btnFetchTx">Fetch Transactions</button>
           <span id="txMsg2" class="muted"></span>
         </div>
 
-        <!-- Progress bar -->
         <div id="uploadProgress" style="margin-top:10px; display:none;">
           <div style="background:#23306b; border-radius:8px; overflow:hidden; height:14px;">
             <div id="uploadBar" style="width:0%; height:100%; background:#2a7cf7; transition: width 0.3s;"></div>
@@ -212,10 +94,12 @@
         </div>
 
         <div id="txOut" style="margin-top:12px"></div>
+        <div style="margin-top:12px;">
+          <button id="btnShowMore" style="display:none;">Show More</button>
+        </div>
       </div>
     </section>
 
-    <!-- LOGIN -->
     <section id="page-login" class="page">
       <div class="card">
         <h2>Login</h2>
@@ -232,7 +116,6 @@
       </div>
     </section>
 
-    <!-- SIGNUP -->
     <section id="page-signup" class="page">
       <div class="card">
         <h2>Sign Up</h2>
@@ -250,7 +133,6 @@
       </div>
     </section>
 
-    <!-- SETTINGS -->
     <section id="page-settings" class="page">
       <div class="card">
         <h2>Settings</h2>
@@ -268,6 +150,24 @@
   </main>
 
 <script>
+  let txPageSize = 30;
+  let txShown = 0;
+  let allFetched = false;
+  let isLoading = false;
+
+  const CATEGORY_OPTIONS = [
+    "Housing",
+    "Utilities & Bills",
+    "Food & Dining",
+    "Transportation",
+    "Shopping & Retail",
+    "Subscriptions & Memberships",
+    "Transfers & Payments",
+    "Income & Deposits",
+    "Health & Wellness",
+    "Travel & Entertainment",
+    "Other"
+  ];
 
   const institutions = {
     bank: [
@@ -285,7 +185,6 @@
 
   acctType.addEventListener("change", function() {
     instSelect.innerHTML = '<option value="" disabled selected>Select Institution...</option>';
-
     const type = this.value;
     if (institutions[type]) {
       institutions[type].forEach(opt => {
@@ -303,72 +202,52 @@
 (function() {
   const $ = (id) => document.getElementById(id);
 
-  // Pages
-  const pages = {
-    home: $('page-home'),
-    login: $('page-login'),
-    signup: $('page-signup'),
-    settings: $('page-settings')
-  };
+  const pages = { home: $('page-home'), login: $('page-login'), signup: $('page-signup'), settings: $('page-settings') };
 
-  // Upload state
   let currentUploadController = null;
   let uploadInProgress = false;
   let fakeProgressTimer = null;
 
-  // Local storage wrapper
   const store = {
     get baseUrl() { return localStorage.getItem('pfa.baseUrl') || 'http://127.0.0.1:5000'; },
     set baseUrl(v) { localStorage.setItem('pfa.baseUrl', v); },
-    get token() { return localStorage.getItem('pfa.token') || ''; },
-    set token(v) { v ? localStorage.setItem('pfa.token', v) : localStorage.removeItem('pfa.token'); }
+    get token() { return sessionStorage.getItem('pfa.token') || ''; },
+    set token(v) { v ? sessionStorage.setItem('pfa.token', v) : sessionStorage.removeItem('pfa.token'); }
   };
 
-  // Decode JWT
   function decodeToken(jwt) {
     try {
       const payload = jwt.split('.')[1];
       return JSON.parse(atob(payload.replace(/-/g,'+').replace(/_/g,'/')));
-    } catch (_) {
-      return null;
-    }
+    } catch (_) { return null; }
   }
 
-  // Update nav + UI state
   function updateAuthUI() {
     const loggedIn = !!store.token;
     $('btnLogout').style.display = loggedIn ? 'inline-block' : 'none';
     $('tabHome').style.display = loggedIn ? 'inline-block' : 'none';
     $('tabLogin').style.display = loggedIn ? 'none' : 'inline-block';
     $('tabSignup').style.display = loggedIn ? 'none' : 'inline-block';
-
     const p = decodeToken(store.token);
     $('welcomeName').textContent = loggedIn && p && p.username ? p.username : '(guest)';
     $('baseUrl').value = store.baseUrl;
   }
 
-  // Route guard
   function guard(route) {
-    if (route === 'home' && !store.token) {
-      navigate('login');
-      return false;
-    }
+    if (route === 'home' && !store.token) { navigate('login'); return false; }
     return true;
   }
 
-  // Navigation
   function navigate(route) {
     if (!guard(route)) return;
-
     Object.values(pages).forEach(p => p.classList.remove('active'));
     (pages[route] || pages.home).classList.add('active');
-
     document.querySelectorAll('[data-tab]').forEach(el => {
       el.classList.toggle('active', el.getAttribute('data-tab') === route);
     });
-
     if (location.hash !== '#' + route) location.hash = '#' + route;
     updateAuthUI();
+    if (route === 'home' && store.token) loadTransactions(true);
   }
 
   function routeFromHash() {
@@ -377,14 +256,9 @@
     return ['home','login','signup','settings'].includes(r) ? r : 'home';
   }
 
-  // Helpers
   function setMsg(id, msg, timeoutMs = 0) {
     $(id).textContent = msg;
-    if (timeoutMs > 0) {
-      setTimeout(() => {
-        $(id).textContent = '';
-      }, timeoutMs);
-    }
+    if (timeoutMs > 0) setTimeout(() => { $(id).textContent = ''; }, timeoutMs);
   }
 
   function headers() {
@@ -401,23 +275,16 @@
         stopFakeProgress();
         next();
       }
-    } else {
-      next();
-    }
+    } else next();
   }
 
-  // Fake progress bar
   function startFakeProgress() {
     $('uploadProgress').style.display = 'block';
     $('uploadBar').style.width = '0%';
     $('uploadStatus').textContent = 'Uploading...';
-
     let p = 0;
     fakeProgressTimer = setInterval(() => {
-      if (p < 90) {
-        p += Math.random() * 1;
-        $('uploadBar').style.width = Math.min(p, 90) + '%';
-      }
+      if (p < 90) { p += Math.random() * 1; $('uploadBar').style.width = Math.min(p, 90) + '%'; }
     }, 400);
   }
 
@@ -425,104 +292,115 @@
     clearInterval(fakeProgressTimer);
     $('uploadBar').style.width = '100%';
     $('uploadStatus').textContent = done ? 'Done!' : 'Cancelled';
-
-    setTimeout(() => {
-      $('uploadProgress').style.display = 'none';
-    }, 1500);
+    setTimeout(() => { $('uploadProgress').style.display = 'none'; }, 1500);
   }
 
-  // ================
-  // Event Handlers
-  // ================
+  function formatAmount(v) {
+    const n = Number(v);
+    return Number.isFinite(n) ? n.toFixed(2) : (v ?? '');
+  }
 
-  // Signup
+  function debounce(fn, ms = 700) {
+    let t; return function(...args){ clearTimeout(t); t = setTimeout(() => fn.apply(this,args), ms); };
+  }
+
+  const categoryDebouncers = new Map();
+
+  async function updateCategory(id, newCategory, inputEl) {
+    const base = store.baseUrl;
+    try {
+      inputEl.dataset.saving = '1';
+      const r = await fetch(`${base}/transactions/${encodeURIComponent(id)}`, {
+        method: 'PATCH',
+        headers: { ...headers() },
+        body: JSON.stringify({ category: newCategory })
+      });
+      if (!r.ok) {
+        const d = await r.json().catch(()=>({}));
+        throw new Error(d.error || 'Update failed');
+      }
+    } catch (e) {
+      setMsg('txMsg', e.message || 'Network error', 3000);
+    } finally {
+      delete inputEl.dataset.saving;
+    }
+  }
+
+  async function loadTransactions(reset = false) {
+    const base = store.baseUrl;
+    try {
+      if (reset) { txShown = 0; allFetched = false; $('txOut').innerHTML = ''; }
+      if (allFetched || isLoading) return;
+      isLoading = true;
+      $('btnShowMore').disabled = true;
+
+      const r = await fetch(`${base}/transactions?limit=${txPageSize}&offset=${txShown}`, { headers: headers() });
+
+      if (r.status === 401) {
+        store.token = '';
+        updateAuthUI();
+        navigate('login');
+        setMsg('txMsg','Session expired. Please log in again.', 4000);
+        return;
+      }
+
+      const d = await r.json();
+      if (r.ok && Array.isArray(d.transactions)) {
+        if (d.transactions.length === 0) {
+          allFetched = true;
+          if (txShown === 0) $('txOut').innerHTML = '<p class="muted">No transactions</p>';
+          $('btnShowMore').style.display = 'none';
+        } else {
+          renderTable(d.transactions, reset);
+          txShown += d.transactions.length;
+          $('btnShowMore').style.display = d.transactions.length === txPageSize ? 'inline-block' : 'none';
+          if (d.transactions.length < txPageSize) allFetched = true;
+        }
+      } else {
+        $('txOut').innerHTML = '<p class="muted">No transactions</p>';
+        $('btnShowMore').style.display = 'none';
+      }
+    } catch (e) {
+      setMsg('txMsg','Network error', 3000);
+    } finally {
+      isLoading = false;
+      $('btnShowMore').disabled = false;
+    }
+  }
+
   $('btnSignup').onclick = async () => {
     const base = store.baseUrl;
-    const body = {
-      username: $('su_username').value.trim(),
-      email: $('su_email').value.trim(),
-      password: $('su_password').value
-    };
-
+    const body = { username: $('su_username').value.trim(), email: $('su_email').value.trim(), password: $('su_password').value };
     try {
-      const r = await fetch(base + '/signup', {
-        method: 'POST',
-        headers: { 'Content-Type':'application/json' },
-        body: JSON.stringify(body)
-      });
+      const r = await fetch(base + '/signup', { method:'POST', headers:{ 'Content-Type':'application/json' }, body:JSON.stringify(body) });
       const d = await r.json();
-      if (r.ok) {
-        setMsg('signupMsg','Signup ok');
-        navigate('login');
-      } else {
-        setMsg('signupMsg', d.error || 'Signup failed');
-      }
-    } catch(e) {
-      setMsg('signupMsg','Network error');
-    }
+      if (r.ok) { setMsg('signupMsg','Signup ok', 3000); navigate('login'); }
+      else setMsg('signupMsg', d.error || 'Signup failed', 3000);
+    } catch { setMsg('signupMsg','Network error', 3000); }
   };
 
-  // Login
   $('btnLogin').onclick = async () => {
     const base = store.baseUrl;
-    const body = {
-      username: $('li_username').value.trim(),
-      password: $('li_password').value
-    };
-
+    const body = { username: $('li_username').value.trim(), password: $('li_password').value };
     try {
-      const r = await fetch(base + '/login', {
-        method: 'POST',
-        headers: { 'Content-Type':'application/json' },
-        body: JSON.stringify(body)
-      });
+      const r = await fetch(base + '/login', { method:'POST', headers:{ 'Content-Type':'application/json' }, body:JSON.stringify(body) });
       const d = await r.json();
-
       if (r.ok && d.token) {
         store.token = d.token;
         updateAuthUI();
-        setMsg('loginMsg','Logged in!');
+        setMsg('loginMsg','Logged in!', 2000);
         navigate('home');
-      } else {
-        setMsg('loginMsg', d.error || 'Login failed');
-      }
-    } catch(e) {
-      setMsg('loginMsg','Network error');
-    }
+        await loadTransactions(true);
+      } else setMsg('loginMsg', d.error || 'Login failed', 3000);
+    } catch { setMsg('loginMsg','Network error', 3000); }
   };
 
-  // Fetch Transactions
-  $('btnFetchTx').onclick = async () => {
-    const base = store.baseUrl;
-    try {
-      const r = await fetch(base + '/transactions', { headers: headers() });
-      const d = await r.json();
-
-      if (r.ok && Array.isArray(d.transactions)) {
-        renderTable(d.transactions);
-        setMsg('txMsg','Fetched ' + d.transactions.length + ' items');
-      } else {
-        $('txOut').innerHTML = '<p class="muted">No transactions</p>';
-        setMsg('txMsg', (d && d.error) || 'Failed');
-      }
-    } catch(e) {
-      setMsg('txMsg','Network error');
-    }
-  };
-
-  // Upload CSV
   $('btnUpload').onclick = async () => {
     const base = $('baseUrl').value.trim();
     const file = $('csvFile').files[0];
     const institution = $('institution').value;
-    if (!file) {
-      setMsg('txMsg','Please select a CSV file to upload');
-      return;
-    }
-    if (!institution) {
-      setMsg('txMsg','Please select CSV details');
-      return;
-    }
+    if (!file) { setMsg('txMsg','Please select a CSV file to upload', 3000); return; }
+    if (!institution) { setMsg('txMsg','Please select CSV details', 3000); return; }
 
     currentUploadController = new AbortController();
     uploadInProgress = true;
@@ -530,34 +408,27 @@
 
     const form = new FormData();
     form.append('file', file);
-    form.append("csv_type", institution);
+    form.append('csv_type', institution);
     form.append('accountType', acctType.value);
     form.append('institution', institution);
 
     try {
-      const r = await fetch(base + '/upload', {
-        method: 'POST',
-        headers: { 'Authorization': headers()['Authorization'] || '' },
-        body: form,
-        signal: currentUploadController.signal
-      });
+      const r = await fetch(base + '/upload', { method:'POST', headers:{ 'Authorization': headers()['Authorization'] || '' }, body:form, signal:currentUploadController.signal });
       const d = await r.json();
-
       uploadInProgress = false;
       stopFakeProgress(r.ok);
-      setMsg('txMsg', r.ok ? 'Upload ok' : (d.error || 'Upload failed'));
+      await loadTransactions(true);
+      setMsg('txMsg', r.ok ? 'Upload ok' : (d.error || 'Upload failed'), 3000);
     } catch(e) {
-      if (e.name === 'AbortError') {
-        setMsg('txMsg','Upload cancelled');
-      } else {
-        setMsg('txMsg','Network error');
-      }
+      if (e.name === 'AbortError') setMsg('txMsg','Upload cancelled', 3000);
+      else setMsg('txMsg','Network error', 3000);
       uploadInProgress = false;
       stopFakeProgress(false);
     }
   };
 
-  // Navigation + Logout
+  $('btnShowMore').onclick = () => { loadTransactions(); };
+
   document.querySelectorAll('[data-tab]').forEach(tab => {
     tab.addEventListener('click', e => {
       e.preventDefault();
@@ -566,60 +437,80 @@
     });
   });
 
-  $('btnLogout').onclick = () =>
-    confirmCancelJob(() => {
-      store.token = '';
-      updateAuthUI();
-      navigate('login');
-    });
+  $('btnLogout').onclick = () => confirmCancelJob(() => { store.token = ''; updateAuthUI(); navigate('login'); });
 
-  $('saveCfg').onclick = () => {
-    store.baseUrl = $('baseUrl').value.trim();
-    updateAuthUI();
-    setMsg('cfgMsg','Saved');
-  };
+  $('saveCfg').onclick = () => { store.baseUrl = $('baseUrl').value.trim(); updateAuthUI(); setMsg('cfgMsg','Saved', 2000); };
 
-  $('clearToken').onclick = () => {
-    store.token = '';
-    updateAuthUI();
-    setMsg('cfgMsg','Token cleared');
-    navigate('login');
-  };
+  $('clearToken').onclick = () => { store.token = ''; updateAuthUI(); setMsg('cfgMsg','Token cleared', 2000); navigate('login'); };
 
-  // Init
   window.addEventListener('hashchange', () => navigate(routeFromHash()));
-  document.addEventListener('DOMContentLoaded', () => {
-    updateAuthUI();
-    navigate(routeFromHash());
-  });
+  document.addEventListener('DOMContentLoaded', () => { updateAuthUI(); navigate(routeFromHash()); });
 
   window.addEventListener("beforeunload", (e) => {
-    if (uploadInProgress) {
-      e.preventDefault();
-      e.returnValue = "An upload is in progress. Leave anyway?";
-    }
+    if (uploadInProgress) { e.preventDefault(); e.returnValue = "An upload is in progress. Leave anyway?"; }
   });
 
-  // Render transactions table
-  function renderTable(rows) {
-    if (!rows || rows.length === 0) {
-      $('txOut').innerHTML = '<p class="muted">No transactions</p>';
-      return;
-    }
-
-    const cols = ['amount','category','description'];
-    const head = '<tr>' + cols.map(c => `<th>${c}</th>`).join('') + '</tr>';
-    const body = rows.map(r =>
-      '<tr>' + cols.map(c => `<td>${escapeHtml(String(r[c] ?? ''))}</td>`).join('') + '</tr>'
-    ).join('');
-
-    $('txOut').innerHTML = `<table>${head}${body}</table>`;
+  function formatDate(val) {
+    if (!val) return '';
+    const d = new Date(val);
+    if (isNaN(d)) return val;
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
   }
 
-  function escapeHtml(s) {
-    return s.replace(/[&<>"]/g, m =>
-      ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m])
-    );
+  function renderTable(rows, reset = false) {
+    const cols = ['date','description','category','amount'];
+
+    if (reset) {
+      const head = '<tr>' + cols.map(c => `<th>${c}</th>`).join('') + '</tr>';
+      $('txOut').innerHTML = `<table id="txTable">${head}</table>`;
+    }
+
+    const table = document.getElementById('txTable');
+    const frag = document.createDocumentFragment();
+
+    rows.forEach(r => {
+      const id = r.id || r._id;
+      const tr = document.createElement('tr');
+
+      const tdDate = document.createElement('td');
+      tdDate.className = 'col-date';
+      tdDate.textContent = formatDate(r.date);
+      tr.appendChild(tdDate);
+
+      const tdDesc = document.createElement('td');
+      tdDesc.textContent = r.description ?? '';
+      tr.appendChild(tdDesc);
+
+      const tdCat = document.createElement('td');
+      const select = document.createElement('select');
+      CATEGORY_OPTIONS.forEach(opt => {
+        const o = document.createElement('option');
+        o.value = opt;
+        o.textContent = opt;
+        select.appendChild(o);
+      });
+      select.value = (r.category && CATEGORY_OPTIONS.includes(r.category)) ? r.category : 'Other';
+      select.style.minWidth = '16ch';
+      if (id) {
+        select.addEventListener('change', async () => {
+          const v = select.value;
+          select.disabled = true;
+          await updateCategory(String(id), v, select);
+          select.disabled = false;
+        });
+      }
+      tdCat.appendChild(select);
+      tr.appendChild(tdCat);
+
+      const tdAmt = document.createElement('td');
+      tdAmt.className = 'num';
+      tdAmt.textContent = formatAmount(r.amount);
+      tr.appendChild(tdAmt);
+
+      frag.appendChild(tr);
+    });
+
+    table.appendChild(frag);
   }
 })();
 </script>

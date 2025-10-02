@@ -39,6 +39,13 @@ def save_transactions(df: pd.DataFrame, user_id: str | None = None) -> int:
         dup_errors = sum(1 for w in bwe.details.get("writeErrors", []) if w.get("code") == 11000)
         return max(0, len(records) - dup_errors)
 
-def get_transactions(user_id: str) -> list:
+def get_transactions(user_id: str, limit: int = 30, offset: int = 0) -> list:
     query = {"user_id": user_id}
-    return list(collection.find(query, {"_id": 0}))
+    cursor = (
+        collection.find(query, {"_id": 0})
+        .sort("date", -1)
+        .skip(offset)
+        .limit(limit)
+    )
+    return list(cursor)
+
