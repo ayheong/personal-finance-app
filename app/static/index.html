@@ -5,45 +5,101 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Personal Finance App</title>
   <style>
-    :root { --bg:#f3f4f6; --card:#ffffff; --line:#d1d5db; --ink:#111827; --muted:#6b7280; --accent:#2563eb; --accent-hover:#1d4ed8; }
+    :root {
+      --bg:#f3f4f6; --card:#ffffff; --line:#e5e7eb; --ink:#0f172a; --muted:#64748b;
+      --accent:#2563eb; --accent-hover:#1d4ed8; --ring:#c7d2fe;
+    }
     *{ box-sizing:border-box; }
-    body{ font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif; margin:0; background:var(--bg); color:var(--ink); line-height:1.5; }
+    body{
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      margin:0; background:linear-gradient(180deg,#f8fafc 0%, #eef2ff 100%);
+      color:var(--ink); line-height:1.5;
+    }
     a{ color:inherit; text-decoration:none; }
     .container{ max-width:1250px; margin:0 auto; padding:16px 20px; }
-    header.nav{ position:sticky; top:0; z-index:10; background:rgba(255,255,255,.8); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); }
+    header.nav{
+      position:sticky; top:0; z-index:10; background:rgba(255,255,255,.8);
+      backdrop-filter:blur(10px); border-bottom:1px solid var(--line);
+    }
     .nav-inner{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 0; }
-    .brand{ font-weight:700; font-size:18px; }
+    .brand{ font-weight:800; font-size:18px; letter-spacing:.2px; }
     .tabs{ display:flex; gap:10px; flex-wrap:wrap; }
-    .tab{ padding:8px 14px; border:1px solid var(--line); border-radius:8px; background:#e5e7eb; font-size:14px; font-weight:500; cursor:pointer; transition:background .2s,border-color .2s,color .2s; }
-    .tab:hover{ background:#d1d5db; }
+    .tab{
+      padding:8px 14px; border:1px solid var(--line); border-radius:10px;
+      background:#eef2ff; font-size:14px; font-weight:600; cursor:pointer;
+      transition:background .2s,border-color .2s,color .2s, box-shadow .2s;
+    }
+    .tab:hover{ background:#e0e7ff; box-shadow:0 1px 0 0 var(--ring) inset; }
     .tab.active{ background:var(--accent); border-color:var(--accent); color:#fff; }
     .wrap{ padding:20px; }
-    .card{ background:var(--card); border:1px solid var(--line); border-radius:12px; padding:20px; margin-bottom:16px; box-shadow:0 1px 4px rgba(0,0,0,.08); transition:box-shadow .2s; }
-    .card:hover{ box-shadow:0 4px 12px rgba(0,0,0,.12); }
-    .row{ display:flex; gap:12px; flex-wrap:wrap; }
+
+    .card{
+      background:var(--card); border:1px solid var(--line); border-radius:16px; padding:20px; margin-bottom:16px;
+      box-shadow:0 10px 20px rgba(2,6,23,0.06), 0 4px 6px rgba(2,6,23,0.04);
+      transition:transform .12s ease, box-shadow .2s ease;
+    }
+    .card:hover{ transform:translateY(-1px); box-shadow:0 12px 24px rgba(2,6,23,0.08), 0 6px 8px rgba(2,6,23,0.05); }
+
+    .row{ display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
     label{ display:block; font-size:14px; color:var(--muted); margin-top:6px; }
-    input,button,select{ font-size:15px; padding:10px 12px; border-radius:8px; border:1px solid var(--line); }
-    input{ background:#fff; color:var(--ink); }
-    input::file-selector-button{ border:none; background:var(--accent); color:#fff; padding:8px 10px; border-radius:6px; margin-right:10px; cursor:pointer; }
+    input,button,select{
+      font-size:15px; padding:10px 12px; border-radius:10px; border:1px solid var(--line); background:#fff;
+    }
+    input{ color:var(--ink); }
+    input::file-selector-button{
+      border:none; background:var(--accent); color:#fff; padding:8px 10px; border-radius:8px; margin-right:10px; cursor:pointer;
+    }
     input::file-selector-button:hover{ background:var(--accent-hover); }
-    button{ cursor:pointer; font-size:15px; font-weight:600; border-radius:8px; padding:10px 16px; transition:all .2s; }
+    button{ cursor:pointer; font-size:15px; font-weight:700; padding:10px 16px; transition:all .2s; }
     button.primary{ background:var(--accent); color:#fff; border:none; }
     button.primary:hover{ background:var(--accent-hover); box-shadow:0 2px 6px rgba(37,99,235,.4); }
-    button.secondary{ background:#e5e7eb; color:var(--ink); border:1px solid var(--line); }
-    button.secondary:hover{ background:#d1d5db; box-shadow:0 2px 4px rgba(0,0,0,.1); }
+    button.secondary{ background:#eef2ff; color:var(--ink); border:1px solid var(--line); }
+    button.secondary:hover{ background:#e0e7ff; box-shadow:0 2px 4px rgba(0,0,0,.08); }
     .muted{ color:var(--muted); }
-    table{ width:100%; border-collapse:collapse; background:var(--card); border-radius:8px; overflow:hidden; }
+    .right{ margin-left:auto; }
+    .spacer{ height:6px; }
+
+    table{ width:100%; border-collapse:collapse; background:var(--card); border-radius:12px; overflow:hidden; }
     th,td{ padding:12px; border-bottom:1px solid var(--line); }
-    th{ text-align:left; font-weight:600; color:var(--muted); }
+    th{ text-align:left; font-weight:700; color:var(--muted); }
     tr:hover td{ background:#f9fafb; }
     .page{ display:none; }
     .page.active{ display:block; }
-    .spacer{ height:6px; }
-    .right{ margin-left:auto; }
-    .col-date {width: 140px; white-space: nowrap; }
+    .col-date { width: 140px; white-space:nowrap; }
     td.num{ text-align:right; }
-    input[data-saving="1"]{ outline:2px dashed #a3bffa; }
+    input[data-saving="1"]{ outline:2px dashed var(--ring); }
+
+    /* Charts grid & centering */
+    .charts-grid{
+      display:grid; grid-template-columns: 1fr 1fr; gap:16px; align-items:stretch;
+    }
+    @media (max-width: 900px){ .charts-grid{ grid-template-columns:1fr; } }
+
+    .chart-card{ display:flex; flex-direction:column; gap:12px; }
+    .chart-header{
+      display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+      padding:4px 6px 0; border-bottom:1px dashed var(--line);
+    }
+    .chart-header h3{ margin:0; font-size:18px; font-weight:800; }
+    .chart-header .spacer{ flex:1; }
+    .chart-scope{ display:flex; align-items:center; gap:8px; }
+    .chart-scope label{ margin:0; }
+
+    .chart-wrap{
+      flex:1; display:flex; align-items:center; justify-content:center;
+      min-height:340px; padding:10px;
+    }
+    .chart-wrap canvas{
+      display:block; width:100%; max-width:760px; height:360px;
+    }
+    @media (max-width:900px){
+      .chart-wrap canvas{ height:300px; max-width:100%; }
+    }
+
+    /* Optional tiny hint text */
+    .hint{ font-size:12px; color:var(--muted); }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
 </head>
 <body>
   <header class="nav">
@@ -62,8 +118,37 @@
   <main class="container wrap">
     <section id="page-home" class="page">
       <div class="card">
-        <h2>Welcome <span id="welcomeName" class="muted">(guest)</span></h2>
-        <p class="muted">Upload a CSV to add transactions. Your most recent transactions load automatically.</p>
+        <h2 style="margin:0 0 6px;">Welcome <span id="welcomeName" class="muted">(guest)</span></h2>
+        <p class="muted" style="margin:0;">Upload a CSV to add transactions. Your most recent transactions load automatically.</p>
+      </div>
+
+      <!-- Charts ABOVE the transactions -->
+      <div class="charts-grid">
+        <div class="card chart-card">
+          <div class="chart-header">
+            <h3 id="barTitle">Income vs Expenses</h3>
+            <div class="spacer"></div>
+            <div class="chart-scope">
+              <label class="muted" for="barScope">Scope</label>
+              <select id="barScope"></select>
+            </div>
+          </div>
+          <div class="chart-wrap"><canvas id="barChart"></canvas></div>
+          <div class="hint" id="barHint" style="text-align:center;"></div>
+        </div>
+
+        <div class="card chart-card">
+          <div class="chart-header">
+            <h3 id="pieTitle">Expense Breakdown</h3>
+            <div class="spacer"></div>
+            <div class="chart-scope">
+              <label class="muted" for="pieScope">Scope</label>
+              <select id="pieScope"></select>
+            </div>
+          </div>
+          <div class="chart-wrap"><canvas id="pieChart"></canvas></div>
+          <div class="hint" id="pieHint" style="text-align:center;"></div>
+        </div>
       </div>
 
       <div class="card">
@@ -81,21 +166,21 @@
           <span id="txMsg" class="muted"></span>
         </div>
 
-        <div class="row" style="margin-top: 12px;">
-          <button id="btnUpload">Upload CSV</button>
+        <div class="row" style="margin-top:12px;">
+          <button id="btnUpload" class="primary">Upload CSV</button>
           <span id="txMsg2" class="muted"></span>
         </div>
 
         <div id="uploadProgress" style="margin-top:10px; display:none;">
-          <div style="background:#23306b; border-radius:8px; overflow:hidden; height:14px;">
-            <div id="uploadBar" style="width:0%; height:100%; background:#2a7cf7; transition: width 0.3s;"></div>
+          <div style="background:#23306b; border-radius:10px; overflow:hidden; height:14px;">
+            <div id="uploadBar" style="width:0%; height:100%; background:#2a7cf7; transition:width 0.3s;"></div>
           </div>
           <p id="uploadStatus" class="muted" style="margin-top:4px;">Uploading...</p>
         </div>
 
         <div id="txOut" style="margin-top:12px"></div>
         <div style="margin-top:12px;">
-          <button id="btnShowMore" style="display:none;">Show More</button>
+          <button id="btnShowMore" class="secondary" style="display:none;">Show More</button>
         </div>
       </div>
     </section>
@@ -109,10 +194,10 @@
         </div>
         <div class="spacer"></div>
         <div class="row">
-          <button id="btnLogin">Login</button>
+          <button id="btnLogin" class="primary">Login</button>
           <span id="loginMsg" class="muted"></span>
         </div>
-        <p class="muted">No account? <a href="#signup">Create one here</a>.</p>
+        <p class="muted" style="margin:0;">No account? <a href="#signup">Create one here</a>.</p>
       </div>
     </section>
 
@@ -126,10 +211,10 @@
         </div>
         <div class="spacer"></div>
         <div class="row">
-          <button id="btnSignup">Create Account</button>
+          <button id="btnSignup" class="primary">Create Account</button>
           <span id="signupMsg" class="muted"></span>
         </div>
-        <p class="muted">Already have an account? <a href="#login">Login</a>.</p>
+        <p class="muted" style="margin:0;">Already have an account? <a href="#login">Login</a>.</p>
       </div>
     </section>
 
@@ -150,23 +235,21 @@
   </main>
 
 <script>
+  // --- paging for TABLE ONLY ---
   let txPageSize = 30;
   let txShown = 0;
   let allFetched = false;
   let isLoading = false;
 
+  // charts
+  let pieChart, barChart;
+  let allTransactions = [];
+  let availableYears = [];
+
   const CATEGORY_OPTIONS = [
-    "Housing",
-    "Utilities & Bills",
-    "Food & Dining",
-    "Transportation",
-    "Shopping & Retail",
-    "Subscriptions & Memberships",
-    "Transfers & Payments",
-    "Income & Deposits",
-    "Health & Wellness",
-    "Travel & Entertainment",
-    "Other"
+    "Housing","Utilities & Bills","Food & Dining","Transportation","Shopping & Retail",
+    "Subscriptions & Memberships","Transfers & Payments","Income & Deposits",
+    "Health & Wellness","Travel & Entertainment","Other"
   ];
 
   const institutions = {
@@ -182,26 +265,21 @@
 
   const acctType = document.getElementById("accountType");
   const instSelect = document.getElementById("institution");
-
   acctType.addEventListener("change", function() {
     instSelect.innerHTML = '<option value="" disabled selected>Select Institution...</option>';
     const type = this.value;
     if (institutions[type]) {
       institutions[type].forEach(opt => {
         const o = document.createElement("option");
-        o.value = opt.value;
-        o.textContent = opt.label;
+        o.value = opt.value; o.textContent = opt.label;
         instSelect.appendChild(o);
       });
       instSelect.disabled = false;
-    } else {
-      instSelect.disabled = true;
-    }
+    } else instSelect.disabled = true;
   });
 
 (function() {
   const $ = (id) => document.getElementById(id);
-
   const pages = { home: $('page-home'), login: $('page-login'), signup: $('page-signup'), settings: $('page-settings') };
 
   let currentUploadController = null;
@@ -216,10 +294,8 @@
   };
 
   function decodeToken(jwt) {
-    try {
-      const payload = jwt.split('.')[1];
-      return JSON.parse(atob(payload.replace(/-/g,'+').replace(/_/g,'/')));
-    } catch (_) { return null; }
+    try { const payload = jwt.split('.')[1]; return JSON.parse(atob(payload.replace(/-/g,'+').replace(/_/g,'/'))); }
+    catch (_) { return null; }
   }
 
   function updateAuthUI() {
@@ -247,7 +323,11 @@
     });
     if (location.hash !== '#' + route) location.hash = '#' + route;
     updateAuthUI();
-    if (route === 'home' && store.token) loadTransactions(true);
+
+    if (route === 'home' && store.token) {
+      loadTransactions(true);     // table page 1 (UI only)
+      buildAllAndInitCharts();    // one sweep for charts + selectors
+    }
   }
 
   function routeFromHash() {
@@ -300,12 +380,247 @@
     return Number.isFinite(n) ? n.toFixed(2) : (v ?? '');
   }
 
-  function debounce(fn, ms = 700) {
-    let t; return function(...args){ clearTimeout(t); t = setTimeout(() => fn.apply(this,args), ms); };
+  // ---------- Helpers for charts ----------
+  function monthKeyISO(val){
+    if (!val) return null;
+    if (typeof val === 'string' && /^\d{4}-\d{2}/.test(val)) return val.slice(0,7);
+    const d = new Date(val);
+    return isNaN(d) ? null : d.toISOString().slice(0,7);
+  }
+  function monthsForYear(year){
+    return Array.from({length:12}, (_,i)=>`${year}-${String(i+1).padStart(2,'0')}`);
+  }
+  function monthLabelsJanDec(){
+    return ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  }
+  function yearsFromRows(rows){
+    const s = new Set();
+    for (const t of rows){ const k = monthKeyISO(t.date); if (k) s.add(k.slice(0,4)); }
+    return Array.from(s).sort(); // asc
+  }
+  function getDefaultYear(years){
+    if (!years.length) return String(new Date().getFullYear());
+    const current = String(new Date().getFullYear());
+    const lastFull = String(Number(current) - 1);
+    if (years.includes(lastFull)) return lastFull;
+    return years[years.length - 1];
+  }
+  function lastNMonthKeysFromData(rows, n=12){
+    let maxKey = null;
+    for (const t of rows){ const k = monthKeyISO(t.date); if (k && (!maxKey || k > maxKey)) maxKey = k; }
+    if (!maxKey){
+      const d = new Date(); maxKey = `${d.getUTCFullYear()}-${String(d.getUTCMonth()+1).padStart(2,'0')}`;
+    }
+    const [y,m] = maxKey.split('-').map(Number);
+    const keys = [];
+    for (let i=n-1;i>=0;i--){
+      const d = new Date(Date.UTC(y, m-1 - i, 1));
+      keys.push(`${d.getUTCFullYear()}-${String(d.getUTCMonth()+1).padStart(2,'0')}`);
+    }
+    return keys;
+  }
+  function computeYearIE(rows, year){
+    const keys = monthsForYear(year);
+    const sumsIn  = Object.fromEntries(keys.map(k=>[k,0]));
+    const sumsOut = Object.fromEntries(keys.map(k=>[k,0]));
+    for (const t of rows){
+      const k = monthKeyISO(t.date);
+      if (!k || !k.startsWith(year+'-')) continue;
+      const amt = Number(t.amount)||0;
+      if (amt >= 0) sumsIn[k]+=amt; else sumsOut[k]+=Math.abs(amt);
+    }
+    return { labels: monthLabelsJanDec(), income: keys.map(k=>sumsIn[k]), expenses: keys.map(k=>sumsOut[k]) };
+  }
+  function computeRolling12IE(rows){
+    const keys = lastNMonthKeysFromData(rows, 12);
+    const sumsIn  = Object.fromEntries(keys.map(k=>[k,0]));
+    const sumsOut = Object.fromEntries(keys.map(k=>[k,0]));
+    for (const t of rows){
+      const k = monthKeyISO(t.date);
+      if (!k || !(k in sumsIn)) continue;
+      const amt = Number(t.amount)||0;
+      if (amt >= 0) sumsIn[k]+=amt; else sumsOut[k]+=Math.abs(amt);
+    }
+    const labels = keys.map(k => {
+      const [y,m] = k.split('-').map(Number);
+      return new Date(y, m-1, 1).toLocaleString('en-US', { month: 'short', year: '2-digit' });
+    });
+    return { labels, income: keys.map(k=>sumsIn[k]), expenses: keys.map(k=>sumsOut[k]) };
+  }
+  function computeExpenseCats(rows, scope){ // scope: 'all' or year string
+    const totals = Object.fromEntries(CATEGORY_OPTIONS.map(c=>[c,0]));
+    for (const t of rows){
+      const amt = Number(t.amount)||0;
+      if (amt >= 0) continue;
+      const k = monthKeyISO(t.date);
+      if (!k) continue;
+      if (scope !== 'all' && !k.startsWith(scope+'-')) continue;
+      const cat = CATEGORY_OPTIONS.includes(t.category) ? t.category : 'Other';
+      totals[cat]+=Math.abs(amt);
+    }
+    return totals;
   }
 
-  const categoryDebouncers = new Map();
+  function populateBarScope(sel, years, defaultYear){
+    sel.innerHTML = '';
+    // For the bar chart, use a clearer rolling label
+    const roll = document.createElement('option');
+    roll.value = 'rolling12';
+    roll.textContent = 'Last 12 months';
+    sel.appendChild(roll);
 
+    years.forEach(y=>{
+      const o = document.createElement('option');
+      o.value = y; o.textContent = y;
+      sel.appendChild(o);
+    });
+
+    // Default to last full year if available; otherwise keep rolling
+    sel.value = years.includes(defaultYear) ? defaultYear : 'rolling12';
+  }
+
+  function populatePieScope(sel, years, defaultYear){
+    sel.innerHTML = '';
+    const allOpt = document.createElement('option');
+    allOpt.value = 'all';
+    allOpt.textContent = 'All time';
+    sel.appendChild(allOpt);
+
+    years.forEach(y=>{
+      const o = document.createElement('option');
+      o.value = y; o.textContent = y;
+      sel.appendChild(o);
+    });
+
+    sel.value = years.includes(defaultYear) ? defaultYear : 'all';
+  }
+
+  async function fetchAllTransactionsForCharts(){
+    const base = store.baseUrl;
+    let offset = 0, all = [], more = true;
+    setMsg('txMsg2','Loading data for charts…');
+    while (more){
+      const r = await fetch(`${base}/transactions?limit=${txPageSize}&offset=${offset}`, { headers: headers() });
+      if (r.status === 401) { store.token=''; updateAuthUI(); navigate('login'); return []; }
+      const d = await r.json().catch(()=>({transactions:[]}));
+      const rows = Array.isArray(d.transactions)? d.transactions: [];
+      all = all.concat(rows);
+      offset += rows.length;
+      more = rows.length === txPageSize;
+      setMsg('txMsg2', `Loaded ${all.length} for charts…`);
+    }
+    return all;
+  }
+
+  function renderOrUpdateBar(scope){
+    const title = $('barTitle');
+    const hint = $('barHint');
+    let ie;
+
+    if (scope === 'rolling12'){
+      ie = computeRolling12IE(allTransactions);
+      title.textContent = 'Income vs Expenses (Last 12 months)';
+      hint.textContent = 'Showing the most recent 12 months of activity.';
+    } else {
+      ie = computeYearIE(allTransactions, scope);
+      title.textContent = `Income vs Expenses (${scope})`;
+      hint.textContent = 'Jan–Dec totals for the selected year.';
+    }
+
+    const income = ie.income;
+    const expensesNeg = ie.expenses.map(v => -v);
+
+    if (!barChart){
+      const ctx = document.getElementById('barChart');
+      barChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ie.labels,
+          datasets: [
+            { label: 'Income',   data: income,      backgroundColor: '#34d399', borderRadius: 12, borderSkipped: false, stack: 'net' },
+            { label: 'Expenses', data: expensesNeg, backgroundColor: '#f87171', borderRadius: 12, borderSkipped: false, stack: 'net' }
+          ]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: false },
+            tooltip: { callbacks: { label: (ctx) => ` ${ctx.dataset.label}: $${Math.abs(ctx.raw).toLocaleString()}` } }
+          },
+          scales: {
+            x: { stacked: true, grid: { display: false } },
+            y: { stacked: true, ticks: { callback: v => (v<0?'-':'') + '$' + Math.abs(v).toLocaleString() } }
+          },
+          animation: { duration: 700, easing: 'easeOutQuart' }
+        }
+      });
+    } else {
+      barChart.data.labels = ie.labels;
+      barChart.data.datasets[0].data = income;
+      barChart.data.datasets[1].data = expensesNeg;
+      barChart.update();
+    }
+  }
+
+  function renderOrUpdatePie(scope){
+    const title = $('pieTitle');
+    const hint  = $('pieHint');
+    title.textContent = scope === 'all' ? 'Expense Breakdown (All time)' : `Expense Breakdown (${scope})`;
+    hint.textContent  = scope === 'all' ? 'Summed across your entire history.' : 'Summed across the selected year.';
+
+    const cats = computeExpenseCats(allTransactions, scope);
+    const labels = Object.keys(cats);
+    const values = Object.values(cats);
+
+    if (!pieChart){
+      const ctx = document.getElementById('pieChart');
+      pieChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels,
+          datasets: [{
+            data: values,
+            backgroundColor: ['#60a5fa','#34d399','#f472b6','#f59e0b','#a78bfa','#f87171','#22d3ee','#c084fc','#4ade80','#facc15','#94a3b8'],
+            borderWidth: 0
+          }]
+        },
+        options: {
+          cutout: '58%',
+          plugins: {
+            legend: { display: false },
+            tooltip: { callbacks: { label: (ctx) => ` ${ctx.label}: $${ctx.parsed.toLocaleString()}` } }
+          },
+          animation: { duration: 700, easing: 'easeOutQuart' }
+        }
+      });
+    } else {
+      pieChart.data.labels = labels;
+      pieChart.data.datasets[0].data = values;
+      pieChart.update();
+    }
+  }
+
+  async function buildAllAndInitCharts(){
+    allTransactions = await fetchAllTransactionsForCharts();
+    availableYears = yearsFromRows(allTransactions);
+    const defaultYear = getDefaultYear(availableYears);
+
+    // Populate selectors: bar gets "Last 12 months", pie gets "All time"
+    populateBarScope($('barScope'), availableYears, defaultYear);
+    populatePieScope($('pieScope'), availableYears, defaultYear);
+
+    // Initial renders
+    renderOrUpdateBar($('barScope').value);
+    renderOrUpdatePie($('pieScope').value);
+
+    // Wire changes
+    $('barScope').onchange = (e)=> renderOrUpdateBar(e.target.value);
+    $('pieScope').onchange = (e)=> renderOrUpdatePie(e.target.value);
+
+    setMsg('txMsg2', 'Charts updated.', 2000);
+  }
+
+  // ---------- TABLE (pagination is UX-only) ----------
   async function updateCategory(id, newCategory, inputEl) {
     const base = store.baseUrl;
     try {
@@ -319,6 +634,9 @@
         const d = await r.json().catch(()=>({}));
         throw new Error(d.error || 'Update failed');
       }
+      // refresh charts using current scopes
+      renderOrUpdatePie($('pieScope').value);
+      renderOrUpdateBar($('barScope').value);
     } catch (e) {
       setMsg('txMsg', e.message || 'Network error', 3000);
     } finally {
@@ -331,15 +649,12 @@
     try {
       if (reset) { txShown = 0; allFetched = false; $('txOut').innerHTML = ''; }
       if (allFetched || isLoading) return;
-      isLoading = true;
-      $('btnShowMore').disabled = true;
+      isLoading = true; $('btnShowMore').disabled = true;
 
       const r = await fetch(`${base}/transactions?limit=${txPageSize}&offset=${txShown}`, { headers: headers() });
 
       if (r.status === 401) {
-        store.token = '';
-        updateAuthUI();
-        navigate('login');
+        store.token = ''; updateAuthUI(); navigate('login');
         setMsg('txMsg','Session expired. Please log in again.', 4000);
         return;
       }
@@ -363,11 +678,11 @@
     } catch (e) {
       setMsg('txMsg','Network error', 3000);
     } finally {
-      isLoading = false;
-      $('btnShowMore').disabled = false;
+      isLoading = false; $('btnShowMore').disabled = false;
     }
   }
 
+  // ---------- Auth & actions ----------
   $('btnSignup').onclick = async () => {
     const base = store.baseUrl;
     const body = { username: $('su_username').value.trim(), email: $('su_email').value.trim(), password: $('su_password').value };
@@ -386,11 +701,8 @@
       const r = await fetch(base + '/login', { method:'POST', headers:{ 'Content-Type':'application/json' }, body:JSON.stringify(body) });
       const d = await r.json();
       if (r.ok && d.token) {
-        store.token = d.token;
-        updateAuthUI();
-        setMsg('loginMsg','Logged in!', 2000);
+        store.token = d.token; updateAuthUI(); setMsg('loginMsg','Logged in!', 2000);
         navigate('home');
-        await loadTransactions(true);
       } else setMsg('loginMsg', d.error || 'Login failed', 3000);
     } catch { setMsg('loginMsg','Network error', 3000); }
   };
@@ -417,13 +729,13 @@
       const d = await r.json();
       uploadInProgress = false;
       stopFakeProgress(r.ok);
-      await loadTransactions(true);
+      await loadTransactions(true);     // refresh table
+      await buildAllAndInitCharts();    // refresh charts + scopes
       setMsg('txMsg', r.ok ? 'Upload ok' : (d.error || 'Upload failed'), 3000);
     } catch(e) {
       if (e.name === 'AbortError') setMsg('txMsg','Upload cancelled', 3000);
       else setMsg('txMsg','Network error', 3000);
-      uploadInProgress = false;
-      stopFakeProgress(false);
+      uploadInProgress = false; stopFakeProgress(false);
     }
   };
 
@@ -438,10 +750,8 @@
   });
 
   $('btnLogout').onclick = () => confirmCancelJob(() => { store.token = ''; updateAuthUI(); navigate('login'); });
-
-  $('saveCfg').onclick = () => { store.baseUrl = $('baseUrl').value.trim(); updateAuthUI(); setMsg('cfgMsg','Saved', 2000); };
-
-  $('clearToken').onclick = () => { store.token = ''; updateAuthUI(); setMsg('cfgMsg','Token cleared', 2000); navigate('login'); };
+  $('saveCfg').onclick  = () => { store.baseUrl = $('baseUrl').value.trim(); updateAuthUI(); setMsg('cfgMsg','Saved', 2000); };
+  $('clearToken').onclick= () => { store.token = ''; updateAuthUI(); setMsg('cfgMsg','Token cleared', 2000); navigate('login'); };
 
   window.addEventListener('hashchange', () => navigate(routeFromHash()));
   document.addEventListener('DOMContentLoaded', () => { updateAuthUI(); navigate(routeFromHash()); });
@@ -450,6 +760,7 @@
     if (uploadInProgress) { e.preventDefault(); e.returnValue = "An upload is in progress. Leave anyway?"; }
   });
 
+  // ---------- Table rendering ----------
   function formatDate(val) {
     if (!val) return '';
     const d = new Date(val);
@@ -459,12 +770,10 @@
 
   function renderTable(rows, reset = false) {
     const cols = ['date','description','category','amount'];
-
     if (reset) {
       const head = '<tr>' + cols.map(c => `<th>${c}</th>`).join('') + '</tr>';
       $('txOut').innerHTML = `<table id="txTable">${head}</table>`;
     }
-
     const table = document.getElementById('txTable');
     const frag = document.createDocumentFragment();
 
@@ -485,8 +794,7 @@
       const select = document.createElement('select');
       CATEGORY_OPTIONS.forEach(opt => {
         const o = document.createElement('option');
-        o.value = opt;
-        o.textContent = opt;
+        o.value = opt; o.textContent = opt;
         select.appendChild(o);
       });
       select.value = (r.category && CATEGORY_OPTIONS.includes(r.category)) ? r.category : 'Other';
@@ -512,7 +820,8 @@
 
     table.appendChild(frag);
   }
-})();
+
+})(); // IIFE
 </script>
 </body>
 </html>

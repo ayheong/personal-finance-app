@@ -53,8 +53,6 @@ def parse_csv(file_like, config):
     else:
         df["category"] = None
     cols = ["date", "amount", "description", "category"]
-    if "og_category" in df.columns:
-        cols.insert(3, "og_category")
 
     return df[cols]
 
