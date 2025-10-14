@@ -36,3 +36,7 @@ pip install -r requirements.txt
 
 # Run the app
 python app/app.py
+```
+
+<img width="1225" height="1280" alt="example" src="https://github.com/user-attachments/assets/eacfadaf-a25f-489f-adad-7bfd940d9dcb" />
+
