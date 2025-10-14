@@ -2,7 +2,7 @@
 
 A full-stack web app that converts raw bank and credit card statements into categorized expenses and budget insights.  
 Built with Flask + MongoDB, integrates a fine-tuned BERT model with regex rules for transaction classification.
-Currently only supports CSVs downloaded from Wells Fargo, Chase and AMEX (credit only for AMEX).
+Currently only supports CSVs downloaded from Wells Fargo, Chase and AMEX (credit only for AMEX). (WIP)
 
 ---
 
